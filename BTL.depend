@@ -1,0 +1,26 @@
+# depslib dependency file v1.0
+1710213512 source:d:\ltnc\btl\main.cpp
+	<iostream>
+	<SDL.h>
+	<SDL_image.h>
+	"pacman.h"
+	"Monster.h"
+	<vector>
+
+1708873723 source:d:\ltnc\btl\untitled2.cpp
+	<SDL.h>
+	<iostream>
+
+1710213091 source:d:\ltnc\btl\map.cpp
+	<iostream>
+	<SDL.h>
+	<SDL_image.h>
+	<cstring>
+
+1710213144 d:\ltnc\btl\pacman.h
+
+1710213379 d:\ltnc\btl\monster.h
+	<SDL.h>
+	<SDL_image.h>
+	"pacman.h"
+

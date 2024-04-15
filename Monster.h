@@ -3,11 +3,11 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include "pacman.h"
-using namespace std;
+#include "InitAndMap.h"
 struct Graphics {
     SDL_Renderer *renderer;
     SDL_Window *window;
-    SDL_Texture *wall, *pacman, *ghost;
+    SDL_Texture *wall;
 
     void logErrorAndExit(const char* msg, const char* error)
     {
@@ -79,22 +79,24 @@ struct Graphics {
     void init() {
      initSDL();
      wall = loadTexture("map.png");
-     ghost = loadTexture("ghost1.png");
-     pacman = loadTexture("pacmann.png");
 
     }
     void render() {
     for (int i= 0;i< max_row;i++) {
     for (int j=0;j<max_col;j++) {
-    int x = wall_height + j*image_sizeh;
-    int y = wall_width +  i*image_sizew;
+    int x = wall_height + j*tile_size;
+    int y = wall_width +  i*tile_size;
     switch (mapp[i][j]) {
-    case '0':
+    case '#':{
     renderTexture(wall,x,y);
     break;
-    case '1': break;
-    case '5': renderTexture(pacman,x,y); break;
-    case '2': renderTexture(ghost,x,y); break;
+    map_collision[i][j] = 0;
+    }
+    case '0': break;
+    case '.': {break;
+    map_collision[i][j] = 1;
+    }
+    case '2': break;
     case '3': break;
     case '4': break;
 
@@ -109,10 +111,6 @@ struct Graphics {
     {
         SDL_DestroyTexture(wall);
         wall = nullptr;
-        SDL_DestroyTexture(ghost);
-        ghost = nullptr;
-        SDL_DestroyTexture(pacman);
-        pacman = nullptr;
         IMG_Quit();
 
         SDL_DestroyRenderer(renderer);

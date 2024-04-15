@@ -24,3 +24,35 @@
 	<SDL_image.h>
 	"pacman.h"
 
+1713152089 source:d:\ltnc\btl\gamepro\main.cpp
+	<iostream>
+	<SDL.h>
+	<SDL_image.h>
+	"pacman.h"
+	"Monster.h"
+	"InitAndMap.h"
+	<vector>
+
+1713151727 d:\ltnc\btl\gamepro\pacman.h
+	"Monster.h"
+	"position.h"
+	"InitAndMap.h"
+
+1713151727 d:\ltnc\btl\gamepro\monster.h
+	<SDL.h>
+	<SDL_image.h>
+	"pacman.h"
+	"InitAndMap.h"
+
+1711289363 source:d:\ltnc\btl\gamepro\map.cpp
+	<iostream>
+	<SDL.h>
+	<SDL_image.h>
+	<cstring>
+
+1713151727 d:\ltnc\btl\gamepro\initandmap.h
+
+1713147993 d:\ltnc\btl\gamepro\position.h
+	"pacman.h"
+	"Monster.h"
+

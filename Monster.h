@@ -89,8 +89,8 @@ struct Graphics {
     switch (mapp[i][j]) {
     case '#':{
     renderTexture(wall,x,y);
-    break;
     map_collision[i][j] = 0;
+    break;
     }
     case '0': break;
     case '.': {break;

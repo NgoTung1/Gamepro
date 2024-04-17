@@ -24,7 +24,7 @@
 	<SDL_image.h>
 	"pacman.h"
 
-1713152089 source:d:\ltnc\btl\gamepro\main.cpp
+1713190133 source:d:\ltnc\btl\gamepro\main.cpp
 	<iostream>
 	<SDL.h>
 	<SDL_image.h>
@@ -38,7 +38,7 @@
 	"position.h"
 	"InitAndMap.h"
 
-1713151727 d:\ltnc\btl\gamepro\monster.h
+1713187636 d:\ltnc\btl\gamepro\monster.h
 	<SDL.h>
 	<SDL_image.h>
 	"pacman.h"

@@ -42,9 +42,14 @@ int main(int argc, char* argv[])
 
         const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
 // Bên trong vòng lặp chính
+// tải frame, cập nhật tọa độ, xóa render, cập nhật lại background, cập nhật lại frame mới, tính toán collision
 if (currentKeyStates[SDL_SCANCODE_UP]) {
     pac.render_frames(graphics.renderer);
-    pac.position.y-=20;
+//cái mapp sẽ check trước 1 đơn vị nên sẽ - đối với hướng up và left còn cộng thì với down và right
+    if(mapp[(pac.position.y-tile_size-wall_height)/tile_size][(pac.position.x-wall_width)/tile_size]=='#'){
+    pac.position.y+=0;
+    }
+    else pac.position.y -=20;
     SDL_RenderClear(graphics.renderer);
     graphics.render();
     pac.render_frames(graphics.renderer);
@@ -52,7 +57,11 @@ if (currentKeyStates[SDL_SCANCODE_UP]) {
 }
         if (currentKeyStates[SDL_SCANCODE_DOWN] ) {
             pac.render_frames(graphics.renderer);
-    pac.position.y+=20;
+    if(mapp[(pac.position.y+tile_size-wall_height)/tile_size][(pac.position.x-wall_width)/tile_size]=='#'){
+    pac.position.y+=0;
+    }
+    else pac.position.y +=20;
+
     SDL_RenderClear(graphics.renderer);
     graphics.render();
     pac.render_frames(graphics.renderer);
@@ -60,14 +69,20 @@ if (currentKeyStates[SDL_SCANCODE_UP]) {
 
         }
         if (currentKeyStates[SDL_SCANCODE_LEFT] ) {pac.render_frames(graphics.renderer);
-    pac.position.x-=20;
+    if(mapp[(pac.position.y-wall_height)/tile_size][(pac.position.x-tile_size-wall_width)/tile_size]=='#'){
+    pac.position.x+=0;
+    }
+    else pac.position.x -=20;
     SDL_RenderClear(graphics.renderer);
     graphics.render();
     pac.render_frames(graphics.renderer);
     graphics.presentScene();
         }
         if (currentKeyStates[SDL_SCANCODE_RIGHT] ) {pac.render_frames(graphics.renderer);
-    pac.position.x+=20;
+    if(mapp[(pac.position.y-wall_height)/tile_size][(pac.position.x+tile_size-wall_width)/tile_size]=='#'){
+    pac.position.x+=0;
+    }
+    else pac.position.x +=20;
     SDL_RenderClear(graphics.renderer);
     graphics.render();
     pac.render_frames(graphics.renderer);

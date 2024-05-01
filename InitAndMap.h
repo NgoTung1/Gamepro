@@ -9,11 +9,12 @@ const int max_col = 30;
 const int SCREEN_WIDTH = 28*tile_size;
 const int SCREEN_HEIGHT = 36*tile_size;
 const char* WINDOW_TITLE = "Pacman";
-int map_collision[28][36];
+int score= 0;
+const int max_score = 240;
 
 
 // map
-const char mapp[max_row][max_col] = {
+ char mapp[max_row][max_col] = {
 	"                            ",
 	"                            ",
 	"                            ",
@@ -52,7 +53,7 @@ const char mapp[max_row][max_col] = {
 	"                            "
 };
 enum Direction {
-left,right,up,down
+LEFT=0,UP,RIGHT,DOWN
 
 };
 

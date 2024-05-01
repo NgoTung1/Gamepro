@@ -4,10 +4,14 @@
 #include <SDL_image.h>
 #include "pacman.h"
 #include "InitAndMap.h"
+#include <SDL_ttf.h>
+#include <SDL_mixer.h>
 struct Graphics {
     SDL_Renderer *renderer;
     SDL_Window *window;
     SDL_Texture *wall;
+    SDL_Texture *score;
+    SDL_Texture *win;
 
     void logErrorAndExit(const char* msg, const char* error)
     {
@@ -32,7 +36,6 @@ struct Graphics {
         renderer = SDL_CreateRenderer(window, -1,
                      SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
-        //renderer =
                   SDL_CreateSoftwareRenderer(SDL_GetWindowSurface(window));
 
         if (renderer == nullptr)
@@ -40,6 +43,16 @@ struct Graphics {
 
         SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
         SDL_RenderSetLogicalSize(renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
+        if (TTF_Init() == -1) {
+            logErrorAndExit("SDL_ttf could not initialize! SDL_ttf Error: ",
+                             TTF_GetError());
+        }
+        if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 ) {
+   logErrorAndExit( "SDL_mixer could not initialize! SDL_mixer Error: %s\n",
+                    Mix_GetError() );
+}
+
+
     }
 
     void prepareScene(SDL_Texture * background)
@@ -79,8 +92,11 @@ struct Graphics {
     void init() {
      initSDL();
      wall = loadTexture("map.png");
+     score = loadTexture("score.png");
+     win = loadTexture("win.png");
 
     }
+
     void render() {
     for (int i= 0;i< max_row;i++) {
     for (int j=0;j<max_col;j++) {
@@ -89,14 +105,14 @@ struct Graphics {
     switch (mapp[i][j]) {
     case '#':{
     renderTexture(wall,x,y);
-    map_collision[i][j] = 0;
     break;
     }
     case '0': break;
-    case '.': {break;
-    map_collision[i][j] = 1;
+    case '.': {
+    renderTexture(score,x,y);
+    break;
     }
-    case '2': break;
+    case ' ': break;
     case '3': break;
     case '4': break;
 
@@ -107,14 +123,23 @@ struct Graphics {
     }
     presentScene();
     }
+    void render_winpic() {
+    renderTexture(win,20,20);
+    }
     void quit()
     {
         SDL_DestroyTexture(wall);
+        SDL_DestroyTexture(score);
+        SDL_DestroyTexture(win);
+        win = nullptr;
+        score = nullptr;
         wall = nullptr;
         IMG_Quit();
 
         SDL_DestroyRenderer(renderer);
         SDL_DestroyWindow(window);
+        TTF_Quit();
+        Mix_Quit();
         SDL_Quit();
     }
 };

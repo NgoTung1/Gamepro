@@ -3,26 +3,28 @@
 #include "Monster.h"
 #include "position.h"
 #include "InitAndMap.h"
-class pacman {
+class pacman:public Position {
 public:
     pacman();
     ~pacman();
     void tilewall();
-    void render_frames(SDL_Renderer* renderer);
+    void render_frames_right(SDL_Renderer* renderer);
+    void render_frames_left(SDL_Renderer* renderer);
+    void render_frames_up(SDL_Renderer* renderer);
+    void render_frames_down(SDL_Renderer* renderer);
     void init_frame();
     void get();
     void reset_frame();
     void checkcollision();
+    void checkscore(bool quit);
     SDL_Texture* pac_texture;
-    Position position;
+
 
 private:
 int h_frame;
 int w_frame;
 int x_frame;
 int y_frame;
-int x;
-int y;
 SDL_Rect pacframes[3];
 int pacframe = 0;
 
@@ -37,8 +39,8 @@ h_frame = 0;
 w_frame = 0;
 x_frame = 0;
 y_frame = 0;
-position.x = 270;
-position.y =530;
+x = 270;
+y =530;
 
 
 
@@ -80,17 +82,65 @@ void pacman::reset_frame() {
     pacframe = 0;
 }
 //render animation
-void pacman::render_frames(SDL_Renderer* renderer) {
+void pacman::render_frames_right(SDL_Renderer* renderer) {
 
 while(pacframe != 3) {
 
     SDL_Rect* current_pacframe = &pacframes[pacframe];
-    SDL_Rect renderquad = {position.x,position.y,w_frame,h_frame};
+    SDL_Rect renderquad = {x,y,w_frame,h_frame};
     SDL_RenderCopy(renderer,pac_texture,current_pacframe,&renderquad);
     SDL_RenderPresent(renderer);
     pacframe++;
 }
 reset_frame();
+
+}
+void pacman::render_frames_left(SDL_Renderer* renderer) {
+
+while(pacframe != 3) {
+
+    SDL_Rect* current_pacframe = &pacframes[pacframe];
+    SDL_Rect renderquad = {x,y,w_frame,h_frame};
+    SDL_RenderCopyEx(renderer,pac_texture,current_pacframe,&renderquad,180,NULL,SDL_FLIP_NONE);
+    SDL_RenderPresent(renderer);
+    pacframe++;
+}
+reset_frame();
+
+}void pacman::render_frames_down(SDL_Renderer* renderer) {
+
+while(pacframe != 3) {
+
+    SDL_Rect* current_pacframe = &pacframes[pacframe];
+    SDL_Rect renderquad = {x,y,w_frame,h_frame};
+    SDL_RenderCopyEx(renderer,pac_texture,current_pacframe,&renderquad,90,NULL,SDL_FLIP_NONE);
+    SDL_RenderPresent(renderer);
+    pacframe++;
+}
+reset_frame();
+
+}void pacman::render_frames_up(SDL_Renderer* renderer) {
+
+while(pacframe != 3) {
+
+    SDL_Rect* current_pacframe = &pacframes[pacframe];
+    SDL_Rect renderquad = {x,y,w_frame,h_frame};
+    SDL_RenderCopyEx(renderer,pac_texture,current_pacframe,&renderquad,-90,NULL,SDL_FLIP_VERTICAL);
+    SDL_RenderPresent(renderer);
+    pacframe++;
+}
+reset_frame();
+
+}
+void pacman::checkscore(bool quit) {
+if(mapp[(y)/tile_size][(x)/tile_size]=='.') {
+        mapp[(y)/tile_size][(x)/tile_size]=' ';
+        score++;
+}
+if(score == max_score) {
+     quit = true;
+
+}
 
 }
 

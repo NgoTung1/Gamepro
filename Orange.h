@@ -2,6 +2,7 @@
 #define ORANGE_H
 #include <vector>
 #include <cmath>
+#include "pacman.h"
 #include "Monster.h"
 #include "position.h"
 #include "InitAndMap.h"
@@ -11,14 +12,12 @@ class Orange: public Position {
 public:
 Orange();
 ~Orange();
-Position position_cam;
 void render_frames_cam(SDL_Renderer* renderer);
 void init_frame_cam();
 void get_cam();
 void reset_frame_cam();
-bool check_collision();
-void move_for_ghost(pacman &pac,int& get_direct);
-void sort_for_ghost(vector<float> distance, vector<int> arrow);
+void move_for_ghost(int& get_direct, pacman &pac);
+void sort_for_ghost(vector<float> &distance, vector<int> &arrow);
 SDL_Texture* cam_texture;
 
 
@@ -95,7 +94,7 @@ void Orange::init_frame_cam()
 }
 void Orange::render_frames_cam(SDL_Renderer* renderer)
 {
-    while(camframe != 6) {
+    while(camframe<6) {
 
     SDL_Rect* current_camframe = &orangeframes[camframe];
     SDL_Rect renderquad = {x,y,w_frame_cam,h_frame_cam};
@@ -105,7 +104,7 @@ void Orange::render_frames_cam(SDL_Renderer* renderer)
 }
 reset_frame_cam();
 }
-void Orange::sort_for_ghost(vector<float> distance, vector<int> arrow)
+void Orange::sort_for_ghost(vector<float> &distance, vector<int> &arrow)
 {
     for( int i=0;i<distance.size();i++)
     {
@@ -118,19 +117,19 @@ void Orange::sort_for_ghost(vector<float> distance, vector<int> arrow)
         }
     }
 }
-void Orange::move_for_ghost(pacman &pac, int &get_direct)
+void Orange::move_for_ghost(int &get_direct, pacman &pac)
 {
     vector<float> distance;
     vector<int> arrow;
     Direction direct[4]= {LEFT,UP,RIGHT,DOWN};
 
     for(int i=0;i<4;i++) {
-            int a = x; int b = y;
+        int a = x; int b = y;
         if(checkcollision(direct[i])) {
             travel_for_ghost(direct[i], a, b);
             float c = abs(pac.x-a);
             if(c>SCREEN_WIDTH/2) c = SCREEN_WIDTH -c;
-            float kc = static_cast<float>(sqrt(pow(c,2)+pow(pac.y-b,2)));
+            float kc = static_cast<float>(sqrt(pow(c,2)+pow((pac.y-b),2)));
             distance.push_back(kc);
             arrow.push_back(i);
         }
@@ -148,7 +147,6 @@ void Orange::move_for_ghost(pacman &pac, int &get_direct)
             return;
         }
     }
-
 }
 
 

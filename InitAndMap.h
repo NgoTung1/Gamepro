@@ -6,11 +6,15 @@ const int tile_size = 20;
 const int max_row = 36;
 const int max_col = 30;
 // window
+const int fps = 25;
 const int SCREEN_WIDTH = 28*tile_size;
 const int SCREEN_HEIGHT = 36*tile_size;
 const char* WINDOW_TITLE = "Pacman";
 int score= 0;
 const int max_score = 240;
+const int status_menu = 2;
+SDL_Color white_color = {255,255,255};
+SDL_Color red_color = {255,0,0};
 
 
 // map

@@ -1,5 +1,6 @@
 #ifndef POSITION_H
 #define POSITION_H
+#include "InitAndMap.h"
 #include "pacman.h"
 #include "Monster.h"
 #include <vector>
@@ -47,16 +48,16 @@ bool Position::checkcollision(Direction direction)
 void Position::travel(Direction direction)
 {
     switch(direction) {
-    case LEFT: { if(checkcollision(direction)) x-=tile_size;
+    case LEFT: { if(checkcollision(direction)) x-=20;
     break;
     }
-    case RIGHT: {if(checkcollision(direction)) x+=tile_size;
+    case RIGHT: {if(checkcollision(direction)) x+=20;
     break;
     }
-    case UP: { if(checkcollision(direction)) y-=tile_size;
+    case UP: { if(checkcollision(direction)) y-=20;
     break;
     }
-    case DOWN: { if(checkcollision(direction)) y+=tile_size;
+    case DOWN: { if(checkcollision(direction)) y+=20;
     break;
     }
     }
@@ -64,16 +65,16 @@ void Position::travel(Direction direction)
 void Position::travel_for_ghost(Direction direction, int &a, int &b)
 {
     switch(direction) {
-    case LEFT: {  a-=tile_size;
+    case LEFT: {  a-=20;
     break;
     }
-    case RIGHT: { a+=tile_size;
+    case RIGHT: { a+=20;
     break;
     }
-    case UP: {  b-=tile_size;
+    case UP: {  b-=20;
     break;
     }
-    case DOWN: { b+=tile_size;
+    case DOWN: { b+=20;
     break;
     }
     }

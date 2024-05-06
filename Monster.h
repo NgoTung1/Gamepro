@@ -2,7 +2,6 @@
 #define MONSTER_H
 #include <SDL.h>
 #include <SDL_image.h>
-#include "pacman.h"
 #include "InitAndMap.h"
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
@@ -12,7 +11,10 @@ struct Graphics {
     SDL_Texture *wall;
     SDL_Texture *score;
     SDL_Texture *win;
-
+    //SDL_Texture* menuu;
+    TTF_Font* font = loadFont("Purisa BoldOblique.TTF",100);
+    //SDL_Texture* ops1;
+    //SDL_Texture* ops2;
     void logErrorAndExit(const char* msg, const char* error)
     {
         SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_ERROR,
@@ -77,6 +79,38 @@ struct Graphics {
 
         return texture;
     }
+    TTF_Font* loadFont(const char* path, int size)
+    {
+        TTF_Font* gFont = TTF_OpenFont( path, size );
+        if (gFont == nullptr) {
+            SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION,
+                           SDL_LOG_PRIORITY_ERROR,
+                           "Load font %s", TTF_GetError());
+        }
+        return gFont;
+    }
+    SDL_Texture* renderText(const char* text,
+                            TTF_Font* font, SDL_Color textColor)
+    {
+        SDL_Surface* textSurface =
+                TTF_RenderText_Solid( font, text, textColor );
+        if( textSurface == nullptr ) {
+            SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION,
+                           SDL_LOG_PRIORITY_ERROR,
+                           "Render text surface %s", TTF_GetError());
+            return nullptr;
+        }
+
+        SDL_Texture* texture =
+                SDL_CreateTextureFromSurface( renderer, textSurface );
+        if( texture == nullptr ) {
+            SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION,
+                           SDL_LOG_PRIORITY_ERROR,
+                           "Create texture from text %s", SDL_GetError());
+        }
+        SDL_FreeSurface( textSurface );
+        return texture;
+    }
 
     void renderTexture(SDL_Texture *texture, int x, int y)
     {
@@ -88,17 +122,93 @@ struct Graphics {
 
         SDL_RenderCopy(renderer, texture, NULL, &dest);
     }
+    /*
+    bool is_selected(int&x,int&y, SDL_Rect &rect ) {
+     if( x >= rect.x && x <= rect.w+rect.x && y >= rect.y && y <= rect.y + rect.h) return true;
+     return false;
+    }
+
+    void menu()
+    {
+        menuu = loadTexture("menu.JPG");
+        renderTexture(menuu,0,0);
+        int x = 0;
+        int y = 0;
+
+        ops1 = renderText("Start",font,white_color);
+        ops2 = renderText("Exit",font,white_color);
+        SDL_Rect dest1;
+        SDL_Rect dest2;
+        SDL_QueryTexture(ops1, NULL, NULL, &dest1.w, &dest1.h);
+        SDL_QueryTexture(ops2, NULL, NULL, &dest2.w, &dest2.h);
+        SDL_Rect ops[status_menu];
+        SDL_SetTextureBlendMode(ops1, SDL_BLENDMODE_BLEND);
+        SDL_SetTextureBlendMode(ops2, SDL_BLENDMODE_BLEND);
+
+
+        ops[0].x = 336;
+        ops[0].y = 504;
+        ops[0].w = dest1.w;
+        ops[0].h = dest1.h;
+
+        ops[1].x = 336;
+        ops[1].y = 554;
+        ops[1].w = dest2.w;
+        ops[1].h = dest2.h;
+        renderTexture(ops1,ops[0].x,ops[0].y);
+        renderTexture(ops2,ops[1].x,ops[1].y);
+        presentScene();
+        SDL_Event event;
+        while(true) {
+            while(SDL_PollEvent(&event)) {
+                switch(event.type) {
+            case SDL_QUIT:
+                return;
+            case SDL_MOUSEMOTION: {
+                x = event.motion.x;
+                y = event.motion.y;
+                for(int i = 0;i<status_menu;i++) {
+                if( i==0 ) {
+                        if(!is_selected(x,y,ops[i])) {
+                        SDL_SetTextureColorMod(ops1, red_color.r, red_color.g, red_color.b);
+                        }
+                        else {
+                         SDL_SetTextureColorMod(ops1, white_color.r, white_color.g, white_color.b);
+                    }
+                }
+                else
+                {
+                    if(!is_selected(x,y,ops[i])) {
+                        SDL_SetTextureColorMod(ops2, red_color.r, red_color.g, red_color.b);
+                    }
+                    else {
+                         SDL_SetTextureColorMod(ops2, white_color.r, white_color.g, white_color.b);
+                    }
+                }
+                presentScene();
+                }
+            }
+
+                }
+
+            }
+        }
+
+
+
+    }
+    */
 
     void init() {
      initSDL();
      wall = loadTexture("map.png");
-     score = loadTexture("score.png");
+     score = loadTexture("point.png");
      win = loadTexture("win.png");
 
     }
-
-    void render() {
-    for (int i= 0;i< max_row;i++) {
+   void render_map()
+   {
+       for (int i= 0;i< max_row;i++) {
     for (int j=0;j<max_col;j++) {
     int x = wall_height + j*tile_size;
     int y = wall_width +  i*tile_size;
@@ -109,7 +219,7 @@ struct Graphics {
     }
     case '0': break;
     case '.': {
-    renderTexture(score,x,y);
+    renderTexture(score,x+5,y+5);
     break;
     }
     case ' ': break;
@@ -121,8 +231,7 @@ struct Graphics {
     }
 
     }
-    presentScene();
-    }
+   }
     void render_winpic() {
     renderTexture(win,20,20);
     }
@@ -131,11 +240,15 @@ struct Graphics {
         SDL_DestroyTexture(wall);
         SDL_DestroyTexture(score);
         SDL_DestroyTexture(win);
+        //SDL_DestroyTexture(menuu);
+        //SDL_DestroyTexture(ops1);
+        //SDL_DestroyTexture(ops2);
+
         win = nullptr;
         score = nullptr;
         wall = nullptr;
         IMG_Quit();
-
+        TTF_CloseFont(font);
         SDL_DestroyRenderer(renderer);
         SDL_DestroyWindow(window);
         TTF_Quit();

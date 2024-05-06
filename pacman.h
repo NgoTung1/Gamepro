@@ -16,7 +16,7 @@ public:
     void get();
     void reset_frame();
     void checkcollision();
-    void checkscore(bool quit);
+    void checkscore();
     SDL_Texture* pac_texture;
 
 
@@ -41,7 +41,6 @@ x_frame = 0;
 y_frame = 0;
 x = 270;
 y =530;
-
 
 
 }
@@ -132,14 +131,10 @@ while(pacframe != 3) {
 reset_frame();
 
 }
-void pacman::checkscore(bool quit) {
+void pacman::checkscore() {
 if(mapp[(y)/tile_size][(x)/tile_size]=='.') {
         mapp[(y)/tile_size][(x)/tile_size]=' ';
         score++;
-}
-if(score == max_score) {
-     quit = true;
-
 }
 
 }

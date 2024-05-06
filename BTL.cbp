@@ -35,7 +35,9 @@
 		<Unit filename="InitAndMap.h" />
 		<Unit filename="Monster.h" />
 		<Unit filename="Orange.h" />
+		<Unit filename="Red.h" />
 		<Unit filename="White.h" />
+		<Unit filename="game.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="pacman.h" />
 		<Unit filename="position.h" />

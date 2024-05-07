@@ -15,8 +15,7 @@ public:
     void init_frame();
     void get();
     void reset_frame();
-    void checkcollision();
-    void checkscore();
+    void checkscore(int &score);
     SDL_Texture* pac_texture;
 
 
@@ -83,7 +82,7 @@ void pacman::reset_frame() {
 //render animation
 void pacman::render_frames_right(SDL_Renderer* renderer) {
 
-while(pacframe != 3) {
+while(pacframe!=3) {
 
     SDL_Rect* current_pacframe = &pacframes[pacframe];
     SDL_Rect renderquad = {x,y,w_frame,h_frame};
@@ -96,7 +95,7 @@ reset_frame();
 }
 void pacman::render_frames_left(SDL_Renderer* renderer) {
 
-while(pacframe != 3) {
+while(pacframe!=3) {
 
     SDL_Rect* current_pacframe = &pacframes[pacframe];
     SDL_Rect renderquad = {x,y,w_frame,h_frame};
@@ -104,11 +103,12 @@ while(pacframe != 3) {
     SDL_RenderPresent(renderer);
     pacframe++;
 }
+
 reset_frame();
 
 }void pacman::render_frames_down(SDL_Renderer* renderer) {
 
-while(pacframe != 3) {
+while(pacframe!=3) {
 
     SDL_Rect* current_pacframe = &pacframes[pacframe];
     SDL_Rect renderquad = {x,y,w_frame,h_frame};
@@ -120,7 +120,7 @@ reset_frame();
 
 }void pacman::render_frames_up(SDL_Renderer* renderer) {
 
-while(pacframe != 3) {
+while(pacframe!=3) {
 
     SDL_Rect* current_pacframe = &pacframes[pacframe];
     SDL_Rect renderquad = {x,y,w_frame,h_frame};
@@ -131,10 +131,10 @@ while(pacframe != 3) {
 reset_frame();
 
 }
-void pacman::checkscore() {
+void pacman::checkscore(int &score) {
 if(mapp[(y)/tile_size][(x)/tile_size]=='.') {
         mapp[(y)/tile_size][(x)/tile_size]=' ';
-        score++;
+        score+=10;
 }
 
 }

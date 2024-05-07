@@ -2,6 +2,7 @@
 #define GAME_H
 #include <SDL.h>
 #include <SDL_image.h>
+#include <string>
 #include "pacman.h"
 #include "Orange.h"
 #include "White.h"
@@ -9,12 +10,14 @@
 #include "position.h"
 #include "InitAndMap.h"
 #include "Red.h"
+
 class Game {
 public:
 Game();
 ~Game();
 void play(Direction direction, int &get_direct);
 bool check_var();
+void set_score();
 Graphics graphics;
 private:
 pacman pac;
@@ -39,6 +42,7 @@ Game::Game()
     red.red_texture = graphics.loadTexture("Red.PNG");
     red.get_red();
     red.init_frame_red();
+    graphics.Waka = graphics.loadSound("assets/Waka.wav");
 }
 Game::~Game()
 {
@@ -46,6 +50,7 @@ Game::~Game()
     SDL_DestroyTexture(orange.cam_texture);
     SDL_DestroyTexture(white.white_texture);
     SDL_DestroyTexture(red.red_texture);
+    graphics.quit();
 }
 bool Game::check_var()
 {
@@ -54,12 +59,20 @@ bool Game::check_var()
     else if(pac.x == red.x && pac.y == red.y) return false;
     else return true;
 }
+void Game::set_score()
+{
+    string score_text = "Score: " + to_string(score);
+    graphics.load_text = graphics.renderText(score_text,graphics.font,white_color);
+    graphics.renderTexture(graphics.load_text, SCREEN_WIDTH * 0.04, SCREEN_HEIGHT * 0.04);
+    graphics.presentScene();
+}
 void Game::play(Direction direction, int &get_direct)
 {
     SDL_RenderClear(graphics.renderer);
     graphics.render_map();
 
     pac.travel(direction);
+    pac.checkscore(score);
     orange.move_for_ghost(get_direct, pac);
     white.move_for_white(get_direct, pac);
     red.move_for_red(get_direct, pac);
@@ -67,22 +80,25 @@ void Game::play(Direction direction, int &get_direct)
     switch(direction) {
         case UP:
             pac.render_frames_up(graphics.renderer);
+            graphics.play_chunk(graphics.Waka);
             break;
         case DOWN:
             pac.render_frames_down(graphics.renderer);
+            graphics.play_chunk(graphics.Waka);
             break;
         case LEFT:
             pac.render_frames_left(graphics.renderer);
+            graphics.play_chunk(graphics.Waka);
             break;
         case RIGHT:
             pac.render_frames_right(graphics.renderer);
+            graphics.play_chunk(graphics.Waka);
             break;
     }
-    pac.checkscore();
+    set_score();
     white.render_frames_white(graphics.renderer);
     orange.render_frames_cam(graphics.renderer);
     red.render_frames_red(graphics.renderer);
-
     graphics.presentScene();
 }
 

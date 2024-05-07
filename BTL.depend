@@ -24,7 +24,7 @@
 	<SDL_image.h>
 	"pacman.h"
 
-1714917068 source:d:\ltnc\btl\gamepro\main.cpp
+1714981089 source:d:\ltnc\btl\gamepro\main.cpp
 	<iostream>
 	<SDL.h>
 	<SDL_image.h>
@@ -39,13 +39,14 @@
 	"Red.h"
 	"Timer.h"
 
-1714916336 d:\ltnc\btl\gamepro\pacman.h
+1714965849 d:\ltnc\btl\gamepro\pacman.h
 	"Monster.h"
 	"position.h"
 	"InitAndMap.h"
 
-1714957807 d:\ltnc\btl\gamepro\monster.h
+1714983425 d:\ltnc\btl\gamepro\monster.h
 	<SDL.h>
+	<string>
 	<SDL_image.h>
 	"InitAndMap.h"
 	<SDL_ttf.h>
@@ -57,7 +58,7 @@
 	<SDL_image.h>
 	<cstring>
 
-1714916775 d:\ltnc\btl\gamepro\initandmap.h
+1714965064 d:\ltnc\btl\gamepro\initandmap.h
 
 1714915734 d:\ltnc\btl\gamepro\position.h
 	"InitAndMap.h"
@@ -80,9 +81,10 @@
 	"Orange.h"
 	"pacman.h"
 
-1714917068 d:\ltnc\btl\gamepro\game.h
+1714984071 d:\ltnc\btl\gamepro\game.h
 	<SDL.h>
 	<SDL_image.h>
+	<string>
 	"pacman.h"
 	"Orange.h"
 	"White.h"

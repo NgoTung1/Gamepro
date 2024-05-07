@@ -20,8 +20,8 @@ int main(int argc, char* argv[])
     Game game;
     int get_direct = 10;
     Direction direction;
-    //game.graphics.menu();
     game.graphics.render_map();
+    game.set_score();
     game.graphics.presentScene();
     bool quit = false;
     SDL_Event event;
@@ -37,21 +37,25 @@ int main(int argc, char* argv[])
         // tải frame, cập nhật tọa độ, xóa render, cập nhật lại background, cập nhật lại frame mới, tính toán collision
         //cái mapp sẽ check trước 1 đơn vị nên sẽ - đối với hướng up và left còn cộng thì với down và right
         if (currentKeyStates[SDL_SCANCODE_UP]) {
+
              direction = UP;
              game.play(direction,get_direct);
         }
         if (currentKeyStates[SDL_SCANCODE_DOWN] ) {
+
                 direction = DOWN;
           game.play(direction,get_direct);
 
         }
         if (currentKeyStates[SDL_SCANCODE_LEFT] )
             {
+
                 direction = LEFT;
                game.play(direction,get_direct);
 
          }
         if (currentKeyStates[SDL_SCANCODE_RIGHT] ) {
+
                  direction = RIGHT;
                  game.play(direction,get_direct);
         }
@@ -62,6 +66,7 @@ int main(int argc, char* argv[])
             SDL_Delay(delay);
         }
         if(game.check_var() == false) quit = true;
+        if(score == max_score) quit = true;
     }
     game.graphics.quit();
     return 0;

@@ -14,3 +14,4 @@ Nguồn tham khảo:
 - https://www.youtube.com/c/Ph%C3%A1tTri%E1%BB%83nPh%E1%BA%A7nM%E1%BB%81m123AZ
 - https://docs.google.com/document/d/1FZ3jTqHxtyZznNWiJmmve0zYu_aSliUqLP2OsMcdehQ/edit
 - https://www.youtube.com/watch?v=OKs_JewEeOo&t=203s
+- Cảm ơn cô đã xem bài của em ạ!

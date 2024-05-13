@@ -30,7 +30,7 @@ Red red;
 Game::Game()
 {
     graphics.init();
-    pac.pac_texture = graphics.loadTexture("PacMan32.PNG");
+    pac.pac_texture = graphics.loadTexture("PacMan.PNG");
     pac.get();
     pac.init_frame();
     orange.cam_texture = graphics.loadTexture("Orange.PNG");
@@ -84,8 +84,8 @@ void Game::set_score()
 void Game::play(Direction direction, int &get_direct)
 {
     SDL_RenderClear(graphics.renderer);
-    graphics.render_map();
-
+    graphics.render_map(life);
+    set_score();
     pac.travel(direction);
     pac.checkscore(score);
     orange.move_for_ghost(get_direct, pac);
@@ -110,7 +110,6 @@ void Game::play(Direction direction, int &get_direct)
             graphics.play_chunk(graphics.Waka);
             break;
     }
-    set_score();
     white.render_frames_white(graphics.renderer);
     orange.render_frames_cam(graphics.renderer);
     red.render_frames_red(graphics.renderer);

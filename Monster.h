@@ -16,6 +16,7 @@ struct Graphics {
     SDL_Texture* load_text;
     SDL_Texture* Big_score;
     SDL_Texture* menu;
+    SDL_Texture* pac_life;
     TTF_Font* font;
     Mix_Music* intro;
     Mix_Chunk* Waka;
@@ -166,11 +167,12 @@ struct Graphics {
      wall = loadTexture("map.png");
      score = loadTexture("point.png");
      win = loadTexture("win.png");
+     pac_life = loadTexture("pacmann.PNG");
      Big_score = loadTexture("score.png");
      intro = loadMusic("Intro.wav");
 
     }
-   void render_map()
+   void render_map(int &life)
    {
        for (int i= 0;i< max_row;i++) {
     for (int j=0;j<max_col;j++) {
@@ -187,8 +189,12 @@ struct Graphics {
     break;
     }
     case ' ': break;
-    case 'o': renderTexture(Big_score,x,y);
-    case '4': break;
+    case 'o': {renderTexture(Big_score,x,y); break; }
+    case '5': {renderTexture(pac_life,x,y-10);
+    if(life== 2 ) mapp[2][23] = ' ';
+    else if(life == 1) mapp[2][22] = ' ';
+    else if(life == 0) mapp[2][21] = ' ';
+    break;}
 
     }
 
@@ -247,6 +253,8 @@ struct Graphics {
         SDL_DestroyTexture(load_text);
         SDL_DestroyTexture(Big_score);
         SDL_DestroyTexture(menu);
+        SDL_DestroyTexture(pac_life);
+        pac_life = nullptr;
         Big_score = nullptr;
         load_text = nullptr;
         win = nullptr;

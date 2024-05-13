@@ -26,10 +26,11 @@ int main(int argc, char* argv[]) {
         if (menu_play == 1) {
             bool quit = false;
             SDL_Event event;
-            game.graphics.render_map();
+            game.graphics.render_map(life);
             game.graphics.presentScene();
             while (!quit) {
                 time.Start();
+                 if(game.check_var(life) == false) quit = true;
                 //Handle events on queue
                 while (SDL_PollEvent(&event)) {
                     if (event.type == SDL_QUIT) quit = true;
@@ -60,7 +61,6 @@ int main(int argc, char* argv[]) {
                     int delay = tpf - realtime;
                     SDL_Delay(delay);
                 }
-                if(game.check_var(life) == false) quit = true;
                 if(score == max_score) quit = true;
             }
             game.graphics.quit();

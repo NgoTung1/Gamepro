@@ -136,6 +136,10 @@ if(mapp[(y)/tile_size][(x)/tile_size]=='.') {
         mapp[(y)/tile_size][(x)/tile_size]=' ';
         score+=10;
 }
+if(mapp[(y)/tile_size][(x)/tile_size]=='o') {
+        mapp[(y)/tile_size][(x)/tile_size]=' ';
+        score+=100;
+}
 
 }
 

@@ -5,6 +5,7 @@ const int wall_width = 10;
 const int tile_size = 20;
 const int max_row = 36;
 const int max_col = 30;
+const int vec_ghost = 30;
 // window
 const int fps = 25;
 const int SCREEN_WIDTH = 28*tile_size;
@@ -15,6 +16,7 @@ const int max_score = 2400;
 const int status_menu = 2;
 SDL_Color white_color = {255,255,255};
 SDL_Color red_color = {255,0,0};
+int life = 3;
 
 
 // map

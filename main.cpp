@@ -14,63 +14,60 @@
 
 using namespace std;
 
-int main(int argc, char* argv[])
-{
+int main(int argc, char* argv[]) {
     Timer time;
     Game game;
     int get_direct = 10;
     Direction direction;
-    game.graphics.render_map();
-    game.set_score();
-    game.graphics.presentScene();
-    bool quit = false;
-    SDL_Event event;
-    while (!quit) {
-            time.Start();
-        //Handle events on queue
-        while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_QUIT) quit = true;
+    int menu_play;
+    game.graphics.play_music(game.graphics.intro);
+    do {
+        menu_play = game.graphics.ren_menu();
+        if (menu_play == 1) {
+            bool quit = false;
+            SDL_Event event;
+            game.graphics.render_map();
+            game.graphics.presentScene();
+            while (!quit) {
+                time.Start();
+                //Handle events on queue
+                while (SDL_PollEvent(&event)) {
+                    if (event.type == SDL_QUIT) quit = true;
+                }
+                const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
+                // Bên trong vòng lặp chính
+                // tải frame, cập nhật tọa độ, xóa render, cập nhật lại background, cập nhật lại frame mới, tính toán collision
+                //cái mapp sẽ check trước 1 đơn vị nên sẽ - đối với hướng up và left còn cộng thì với down và right
+                if (currentKeyStates[SDL_SCANCODE_UP]) {
+                     direction = UP;
+                     game.play(direction,get_direct);
+                }
+                if (currentKeyStates[SDL_SCANCODE_DOWN] ) {
+                        direction = DOWN;
+                        game.play(direction,get_direct);
+                }
+                if (currentKeyStates[SDL_SCANCODE_LEFT] ) {
+                        direction = LEFT;
+                        game.play(direction,get_direct);
+                 }
+                if (currentKeyStates[SDL_SCANCODE_RIGHT] ) {
+                         direction = RIGHT;
+                         game.play(direction,get_direct);
+                }
+                int realtime = time.get_ticks();
+                int tpf = 1000/fps;
+                if(realtime < tpf) {
+                    int delay = tpf - realtime;
+                    SDL_Delay(delay);
+                }
+                if(game.check_var(life) == false) quit = true;
+                if(score == max_score) quit = true;
+            }
+            game.graphics.quit();
         }
-
-        const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
-        // Bên trong vòng lặp chính
-        // tải frame, cập nhật tọa độ, xóa render, cập nhật lại background, cập nhật lại frame mới, tính toán collision
-        //cái mapp sẽ check trước 1 đơn vị nên sẽ - đối với hướng up và left còn cộng thì với down và right
-        if (currentKeyStates[SDL_SCANCODE_UP]) {
-
-             direction = UP;
-             game.play(direction,get_direct);
-        }
-        if (currentKeyStates[SDL_SCANCODE_DOWN] ) {
-
-                direction = DOWN;
-          game.play(direction,get_direct);
-
-        }
-        if (currentKeyStates[SDL_SCANCODE_LEFT] )
-            {
-
-                direction = LEFT;
-               game.play(direction,get_direct);
-
-         }
-        if (currentKeyStates[SDL_SCANCODE_RIGHT] ) {
-
-                 direction = RIGHT;
-                 game.play(direction,get_direct);
-        }
-        int realtime = time.get_ticks();
-        int tpf = 1000/fps;
-        if(realtime<tpf) {
-            int delay = tpf - realtime;
-            SDL_Delay(delay);
-        }
-        if(game.check_var() == false) quit = true;
-        if(score == max_score) quit = true;
-    }
-    game.graphics.quit();
+    } while(menu_play != 0);
     return 0;
-
 }
+
 
 

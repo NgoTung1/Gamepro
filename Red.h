@@ -145,6 +145,7 @@ void Red::move_for_red(int &get_direct, pacman pac)
         if(arrow[i]!= (get_direct+2)%4) {
             travel_for_ghost(direct[arrow[i]],x,y);
             get_direct = arrow[i];
+            cerr<< direct[arrow[i]] << ' ' << get_direct << endl;
             return;
         }
     }

@@ -6,6 +6,7 @@
 #include "InitAndMap.h"
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
+using namespace std;
 struct Graphics {
     SDL_Renderer *renderer;
     SDL_Window *window;
@@ -13,7 +14,10 @@ struct Graphics {
     SDL_Texture *score;
     SDL_Texture *win;
     SDL_Texture* load_text;
+    SDL_Texture* Big_score;
+    SDL_Texture* menu;
     TTF_Font* font;
+    Mix_Music* intro;
     Mix_Chunk* Waka;
     void logErrorAndExit(const char* msg, const char* error)
     {
@@ -99,16 +103,12 @@ struct Graphics {
         }
         return gMusic;
     }
+    // chỉnh lại tham số thứ 2 là 0 với 0 là số lần lặp lại
     void play_music(Mix_Music *gMusic)
     {
         if (gMusic == nullptr) return;
 
-        if (Mix_PlayingMusic() == 0) {
-            Mix_PlayMusic( gMusic, -1 );
-        }
-        else if( Mix_PausedMusic() == 1 ) {
-            Mix_ResumeMusic();
-        }
+            Mix_PlayMusic( gMusic, 0 );
     }
     Mix_Chunk* loadSound(const char* path) {
         Mix_Chunk* gChunk = Mix_LoadWAV(path);
@@ -166,6 +166,8 @@ struct Graphics {
      wall = loadTexture("map.png");
      score = loadTexture("point.png");
      win = loadTexture("win.png");
+     Big_score = loadTexture("score.png");
+     intro = loadMusic("Intro.wav");
 
     }
    void render_map()
@@ -185,7 +187,7 @@ struct Graphics {
     break;
     }
     case ' ': break;
-    case '3': break;
+    case 'o': renderTexture(Big_score,x,y);
     case '4': break;
 
     }
@@ -194,6 +196,46 @@ struct Graphics {
 
     }
    }
+   int ren_menu() {
+    menu = loadTexture("Paly.PNG");
+    renderTexture(menu, 0, 100);
+    presentScene();
+
+    int x=0, y=0;
+    SDL_Event mevent;
+    bool quitt = false;
+
+    while (!quitt) {
+        while (SDL_PollEvent(&mevent)) {
+            switch (mevent.type) {
+            case SDL_QUIT:{
+                quitt = true;
+                return 0;
+            }
+
+            case SDL_MOUSEBUTTONDOWN:
+                x = mevent.button.x;
+                y = mevent.button.y;
+                if ((x >= 241 && x <= 314) && (y >= 489 && y <= 517)) {
+                    // Play
+                    SDL_RenderClear(renderer);
+                    quitt = true;
+                    cerr<< x << ' ' << y;
+                    return 1;
+                } else if ((x >= 250 && x <= 307) && (y >= 537 && y <= 565)) {
+                    // Exit
+                    quitt = true;
+                    return 0;
+                }
+            default:
+                break;
+            }
+        }
+    }
+}
+
+
+
     void render_winpic() {
     renderTexture(win,20,20);
     }
@@ -203,6 +245,9 @@ struct Graphics {
         SDL_DestroyTexture(score);
         SDL_DestroyTexture(win);
         SDL_DestroyTexture(load_text);
+        SDL_DestroyTexture(Big_score);
+        SDL_DestroyTexture(menu);
+        Big_score = nullptr;
         load_text = nullptr;
         win = nullptr;
         score = nullptr;
@@ -211,6 +256,7 @@ struct Graphics {
         TTF_CloseFont(font);
         font = nullptr;
         Mix_FreeChunk(Waka);
+        Mix_FreeMusic(intro);
         SDL_DestroyRenderer(renderer);
         SDL_DestroyWindow(window);
         TTF_Quit();

@@ -121,14 +121,14 @@ void White::move_for_white(int &get_direct, pacman &pac)
 
     for(int i=0;i<4;i++) {
         int a = x; int b = y;
-        if(checkcollision(direct[i])) {
+
             travel_for_ghost(direct[i], a, b);
             float c = abs(pac.x-a);
             if(c>SCREEN_WIDTH/2) c = SCREEN_WIDTH -c;
             float kc = static_cast<float>(sqrt(pow(c,2)+pow((pac.y-b),2)));
             distance.push_back(kc);
             arrow.push_back(i);
-        }
+
     }
     if(distance.size() == 1){
         travel_for_ghost(direct[arrow[0]],x,y);

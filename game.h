@@ -16,7 +16,7 @@ public:
 Game();
 ~Game();
 void play(Direction direction, int &get_direct);
-bool check_var();
+bool check_var(int &life);
 void set_score();
 Graphics graphics;
 private:
@@ -52,12 +52,27 @@ Game::~Game()
     SDL_DestroyTexture(red.red_texture);
     graphics.quit();
 }
-bool Game::check_var()
-{
-    if(pac.x == orange.x && pac.y == orange.y) return false;
-    else if(pac.x == white.x && pac.y == white.y) return false;
-    else if(pac.x == red.x && pac.y == red.y) return false;
-    else return true;
+bool Game::check_var(int &life)
+{   if(life > 0)
+     {
+    if(pac.x == orange.x && pac.y == orange.y) {life--;
+    pac.x= 270; pac.y = 530;
+    return true;
+    }
+    else if(pac.x == white.x && pac.y == white.y) {
+            life--;
+    pac.x = 270; pac.y = 530;
+    return true;
+
+    }
+    else if(pac.x == red.x && pac.y == red.y) {
+        life --;
+        pac.x = 270; pac.y = 530;
+        return true;
+    }
+    return true;
+    }
+    else return false;
 }
 void Game::set_score()
 {

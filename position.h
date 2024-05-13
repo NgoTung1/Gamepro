@@ -11,7 +11,8 @@ int x;
 int y;
 void travel(Direction direction);
 bool checkcollision(Direction direction);
-void travel_for_ghost(Direction direction, int &a, int &b);
+bool checkcollision_for_ghost(Direction direction);
+void travel_for_ghost(Direction &direction, int &a, int &b);
 
 
 };
@@ -62,7 +63,8 @@ void Position::travel(Direction direction)
     }
     }
 }
-void Position::travel_for_ghost(Direction direction, int &a, int &b)
+
+void Position::travel_for_ghost(Direction &direction, int &a, int &b)
 {
     switch(direction) {
     case LEFT: {  a-=20;
@@ -79,7 +81,6 @@ void Position::travel_for_ghost(Direction direction, int &a, int &b)
     }
     }
 }
-
 
 
 

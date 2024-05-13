@@ -8,10 +8,11 @@ Về cơ chế chơi: Người chơi sẽ điều khiển nhân vật pacman đi
 
 Ngưỡng điểm mong muốn: 7.5-8.5.
 
-Lý do cho ngưỡng điểm trên: Mặc dù chỉ tái hiện game theo những gì đơn giản và cơ bản nhất, nhưng game của em vẫn đầy đủ các tiêu chí theo barem điểm của cô, đó là game có đồ họa đơn giản, và bổ sung thêm một số tính năng như: hoạt hình, chuyển động, menu, âm thanh, hiện text, score, xử lý va chạm và đặc biệt là thuật toán đơn giản để xử lý việc di chuyển cho những con ma.
+Lý do cho ngưỡng điểm trên: Mặc dù chỉ tái hiện game theo những gì đơn giản và cơ bản nhất, nhưng game của em vẫn đầy đủ các tiêu chí theo barem điểm của cô, đó là game có đồ họa đơn giản, và bổ sung thêm một số tính năng như: hoạt hình, chuyển động, menu, âm thanh, hiện text, score, chỉ số sinh mệnh, xử lý va chạm và đặc biệt là thuật toán đơn giản để xử lý việc di chuyển cho những con ma.
 
 Nguồn tham khảo:
 - https://www.youtube.com/c/Ph%C3%A1tTri%E1%BB%83nPh%E1%BA%A7nM%E1%BB%81m123AZ
 - https://docs.google.com/document/d/1FZ3jTqHxtyZznNWiJmmve0zYu_aSliUqLP2OsMcdehQ/edit
 - https://www.youtube.com/watch?v=OKs_JewEeOo&t=203s
-- Cảm ơn cô đã xem bài của em ạ!
+- 
+Cảm ơn cô đã xem bài của em ạ!

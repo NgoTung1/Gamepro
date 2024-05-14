@@ -122,7 +122,6 @@ void Orange::move_for_ghost(int &get_direct, pacman &pac)
     vector<float> distance;
     vector<int> arrow;
     Direction direct[4]= {LEFT,UP,RIGHT,DOWN};
-
     for(int i=0;i<4;i++) {
         int a = x; int b = y;
         if(checkcollision(direct[i])) {

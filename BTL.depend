@@ -44,7 +44,7 @@
 	"position.h"
 	"InitAndMap.h"
 
-1715611234 d:\ltnc\btl\gamepro\monster.h
+1715652575 d:\ltnc\btl\gamepro\monster.h
 	<SDL.h>
 	<string>
 	<SDL_image.h>
@@ -58,7 +58,7 @@
 	<SDL_image.h>
 	<cstring>
 
-1715608629 d:\ltnc\btl\gamepro\initandmap.h
+1715651906 d:\ltnc\btl\gamepro\initandmap.h
 
 1715305864 d:\ltnc\btl\gamepro\position.h
 	"InitAndMap.h"
@@ -66,7 +66,7 @@
 	"Monster.h"
 	<vector>
 
-1715312200 d:\ltnc\btl\gamepro\orange.h
+1715653421 d:\ltnc\btl\gamepro\orange.h
 	<vector>
 	<cmath>
 	"pacman.h"
@@ -74,14 +74,14 @@
 	"position.h"
 	"InitAndMap.h"
 
-1715312332 d:\ltnc\btl\gamepro\white.h
+1715653421 d:\ltnc\btl\gamepro\white.h
 	"Monster.h"
 	"position.h"
 	"InitAndMap.h"
 	"Orange.h"
 	"pacman.h"
 
-1715611028 d:\ltnc\btl\gamepro\game.h
+1715650292 d:\ltnc\btl\gamepro\game.h
 	<SDL.h>
 	<SDL_image.h>
 	<string>

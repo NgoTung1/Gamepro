@@ -12,7 +12,6 @@ struct Graphics {
     SDL_Window *window;
     SDL_Texture *wall;
     SDL_Texture *score;
-    SDL_Texture *win;
     SDL_Texture* load_text;
     SDL_Texture* Big_score;
     SDL_Texture* menu;
@@ -166,7 +165,6 @@ struct Graphics {
      font = loadFont("assets/Purisa-BoldOblique.ttf",30);
      wall = loadTexture("map.png");
      score = loadTexture("point.png");
-     win = loadTexture("win.png");
      pac_life = loadTexture("pacmann.PNG");
      Big_score = loadTexture("score.png");
      intro = loadMusic("Intro.wav");
@@ -240,16 +238,10 @@ struct Graphics {
     }
 }
 
-
-
-    void render_winpic() {
-    renderTexture(win,20,20);
-    }
     void quit()
     {
         SDL_DestroyTexture(wall);
         SDL_DestroyTexture(score);
-        SDL_DestroyTexture(win);
         SDL_DestroyTexture(load_text);
         SDL_DestroyTexture(Big_score);
         SDL_DestroyTexture(menu);
@@ -257,7 +249,6 @@ struct Graphics {
         pac_life = nullptr;
         Big_score = nullptr;
         load_text = nullptr;
-        win = nullptr;
         score = nullptr;
         wall = nullptr;
         IMG_Quit();

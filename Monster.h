@@ -61,11 +61,6 @@ struct Graphics {
 
     }
 
-    void prepareScene(SDL_Texture * background)
-    {
-        SDL_RenderClear(renderer);
-        SDL_RenderCopy( renderer, background, NULL, NULL);
-    }
 
     void presentScene()
     {
@@ -224,7 +219,6 @@ struct Graphics {
                     // Play
                     SDL_RenderClear(renderer);
                     quitt = true;
-                    cerr<< x << ' ' << y;
                     return 1;
                 } else if ((x >= 250 && x <= 307) && (y >= 537 && y <= 565)) {
                     // Exit

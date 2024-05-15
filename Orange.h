@@ -117,6 +117,7 @@ void Orange::sort_for_ghost(vector<float> &distance, vector<int> &arrow)
         }
     }
 }
+// tính kc euclid, rồi dự đoán bước di chuyển nào có kc ngắn nhất
 void Orange::move_for_ghost(int &get_direct, pacman &pac)
 {
     vector<float> distance;
@@ -127,7 +128,6 @@ void Orange::move_for_ghost(int &get_direct, pacman &pac)
         if(checkcollision(direct[i])) {
             travel_for_ghost(direct[i], a, b);
             float c = abs(pac.x-a);
-            if(c>SCREEN_WIDTH/2) c = SCREEN_WIDTH -c;
             float kc = static_cast<float>(sqrt(pow(c,2)+pow((pac.y-b),2)));
             distance.push_back(kc);
             arrow.push_back(i);

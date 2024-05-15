@@ -16,6 +16,7 @@ void travel_for_ghost(Direction &direction, int &a, int &b);
 
 
 };
+//check trc 1 đơn vị
 bool Position::checkcollision(Direction direction)
 {
     switch(direction) {

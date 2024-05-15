@@ -131,6 +131,7 @@ while(pacframe!=3) {
 reset_frame();
 
 }
+// điểm
 void pacman::checkscore(int &score) {
 if(mapp[(y)/tile_size][(x)/tile_size]=='.') {
         mapp[(y)/tile_size][(x)/tile_size]=' ';

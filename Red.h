@@ -129,7 +129,6 @@ void Red::move_for_red(int &get_direct, pacman pac)
         if(checkcollision(direct[i])) {
             travel_for_ghost(direct[i], a, b);
             float c = abs(pac.x-a);
-            if(c>SCREEN_WIDTH/2) c = SCREEN_WIDTH -c;
             float kc = static_cast<float>(sqrt(pow(c,2)+pow((pac.y-b),2)));
             distance.push_back(kc);
             arrow.push_back(i);

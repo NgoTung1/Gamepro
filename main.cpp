@@ -27,6 +27,8 @@ int main(int argc, char* argv[]) {
             bool quit = false;
             SDL_Event event;
             game.graphics.render_map(life);
+            game.set_score();
+            game.play(direction,get_direct);
             game.graphics.presentScene();
             while (!quit) {
                 time.Start();

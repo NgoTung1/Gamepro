@@ -33,12 +33,10 @@ int main(int argc, char* argv[]) {
             while (!quit) {
                 time.Start();
                  if(game.check_var(life) == false) quit = true;
-                //Handle events on queue
                 while (SDL_PollEvent(&event)) {
                     if (event.type == SDL_QUIT) quit = true;
                 }
                 const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
-                // Bên trong vòng lặp chính
                 // tải frame, cập nhật tọa độ, xóa render, cập nhật lại background, cập nhật lại frame mới, tính toán collision
                 //cái mapp sẽ check trước 1 đơn vị nên sẽ - đối với hướng up và left còn cộng thì với down và right
                 if (currentKeyStates[SDL_SCANCODE_UP]) {
